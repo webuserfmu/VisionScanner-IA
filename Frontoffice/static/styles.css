@@ -8,10 +8,12 @@
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --success: #10b981;
+    --success: #10b981;
     --danger: #ef4444;
     
-    --fancy-bg-1: #2563eb;
-    --fancy-bg-2: #7c3aed;
+    --input-bg: rgba(15, 23, 42, 0.6);
+    --card-bg: rgba(30, 41, 59, 0.6);
+    --btn-text: #ffffff;
     --fancy-text-1: #60a5fa;
     --fancy-text-2: #a855f7;
     --fancy-success-1: #059669;
@@ -28,6 +30,9 @@ body.theme-light {
     --glass-border: rgba(0, 0, 0, 0.1);
     --text-main: #0f172a;
     --text-muted: #475569;
+    --input-bg: rgba(255, 255, 255, 0.6);
+    --card-bg: rgba(241, 245, 249, 0.8);
+    --btn-text: #ffffff;
     --fancy-bg-1: #3b82f6;
     --fancy-bg-2: #8b5cf6;
     --fancy-text-1: #2563eb;
@@ -44,6 +49,9 @@ body.theme-dracula {
     --glass-border: rgba(255, 121, 198, 0.2);
     --text-main: #f8f8f2;
     --text-muted: #6272a4;
+    --input-bg: rgba(40, 42, 54, 0.6);
+    --card-bg: rgba(68, 71, 90, 0.6);
+    --btn-text: #f8f8f2;
     --fancy-bg-1: #bd93f9;
     --fancy-bg-2: #ff79c6;
     --fancy-text-1: #ff79c6;
@@ -60,6 +68,9 @@ body.theme-matrix {
     --glass-border: rgba(0, 255, 0, 0.3);
     --text-main: #00ff00;
     --text-muted: #008800;
+    --input-bg: rgba(0, 20, 0, 0.6);
+    --card-bg: rgba(0, 10, 0, 0.8);
+    --btn-text: #000000;
     --success: #00ff00;
     --danger: #ff0000;
     --fancy-bg-1: #005500;
@@ -102,16 +113,16 @@ h1, h2, h3, h4, h5 { font-weight: 800; letter-spacing: -0.5px; }
 }
 
 /* Modern Inputs */
-.form-control, .form-control:focus {
-    background-color: rgba(15, 23, 42, 0.6);
+.form-control, .form-select, .form-control:focus, .form-select:focus {
+    background-color: var(--input-bg);
     border: 1px solid var(--glass-border);
-    color: white;
+    color: var(--text-main);
     border-radius: 12px;
     padding: 12px 16px;
     transition: all 0.3s ease;
 }
 
-.form-control:focus {
+.form-control:focus, .form-select:focus {
     box-shadow: 0 0 0 3px var(--accent-glow);
     border-color: var(--accent-color);
 }
@@ -123,7 +134,7 @@ h1, h2, h3, h4, h5 { font-weight: 800; letter-spacing: -0.5px; }
     background: linear-gradient(45deg, var(--fancy-bg-1), var(--fancy-bg-2));
     border: none;
     border-radius: 12px;
-    color: white;
+    color: var(--btn-text);
     font-weight: 600;
     padding: 12px 24px;
     text-transform: uppercase;
@@ -135,7 +146,7 @@ h1, h2, h3, h4, h5 { font-weight: 800; letter-spacing: -0.5px; }
 .btn-fancy:hover {
     transform: scale(1.02);
     box-shadow: 0 6px 20px var(--accent-glow);
-    color: white;
+    color: var(--btn-text);
 }
 
 .btn-fancy-success { background: linear-gradient(45deg, var(--fancy-success-1), var(--fancy-success-2)); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
@@ -149,10 +160,10 @@ h1, h2, h3, h4, h5 { font-weight: 800; letter-spacing: -0.5px; }
     font-weight: 600;
     transition: all 0.3s ease;
 }
-.nav-pills .nav-link:hover { color: white; background-color: rgba(255,255,255,0.05); }
+.nav-pills .nav-link:hover { color: var(--text-main); background-color: var(--glass-border); }
 .nav-pills .nav-link.active {
     background: linear-gradient(45deg, var(--fancy-bg-1), var(--fancy-bg-2));
-    color: white;
+    color: var(--btn-text);
     box-shadow: 0 4px 15px var(--accent-glow);
 }
 
@@ -164,8 +175,8 @@ h1, h2, h3, h4, h5 { font-weight: 800; letter-spacing: -0.5px; }
     backdrop-filter: blur(10px);
 }
 .match-card {
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
     border-radius: 20px;
     overflow: hidden;
     transition: transform 0.3s;

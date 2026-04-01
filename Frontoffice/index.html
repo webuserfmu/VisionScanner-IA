@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner IA Pro - Vision Intelligence (Offline)</title>
+    <!-- Offline Fonts & Vendors -->
+    <link rel="stylesheet" href="static/vendor/outfit.css">
+    <link rel="stylesheet" href="static/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="static/vendor/bootstrap-icons.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+
+    <!-- Background Orbs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- TELA DE LOGIN -->
+    <div id="telaLogin" class="d-flex vh-100 align-items-center justify-content-center">
+        <!-- Idioma Flutuante no Login -->
+        <div class="position-absolute top-0 end-0 p-3">
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle text-white border-0" type="button" data-bs-toggle="dropdown" id="btnLangLogin">
+                    <i class="bi bi-globe me-1"></i> PT
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow">
+                    <li><a class="dropdown-item" href="#" onclick="mudarIdioma('pt')">Português (PT)</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="mudarIdioma('en')">English (EN)</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="mudarIdioma('es')">Español (ES)</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="glass-card p-5" style="width: 90%; max-width: 420px;">
+            <div class="text-center mb-4">
+                <i class="bi bi-eye text-accent" style="font-size: 3rem;"></i>
+                <h2 class="gradient-text mt-2">VisionScanner</h2>
+                <p class="text-muted small">Inteligência Artificial de Similaridade</p>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="text" id="loginUser" class="form-control" placeholder="Usuário">
+                <label for="loginUser" data-i18n="lbl_user"><i class="bi bi-person me-2"></i>Usuário</label>
+            </div>
+            
+            <div class="form-floating mb-4">
+                <input type="password" id="loginPass" class="form-control" placeholder="Senha">
+                <label for="loginPass" data-i18n="lbl_pass"><i class="bi bi-key me-2"></i>Senha Secreta</label>
+            </div>
+            
+            <button onclick="fazerLogin()" class="btn btn-fancy w-100 mb-3" id="btnLogin" data-i18n="btn_login">
+                Acessar Sistema <i class="bi bi-arrow-right ms-2"></i>
+            </button>
+            <p id="msgLogin" class="text-danger mt-2 text-center small fw-bold"></p>
+
+            <div class="text-center mt-4 pt-3 border-top border-secondary" id="containerRecuperacao">
+                <a href="#" onclick="abrirModalRecuperacao()" class="text-decoration-none small text-muted hover-white" data-i18n="lbl_forgot">Esqueceu sua senha?</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA PRINCIPAL (APP) -->
+    <div id="telaApp" class="app-screen">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-dark sticky-top glass-card rounded-0 py-3 px-4 mb-4 border-start-0 border-end-0 border-top-0">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <span class="navbar-brand fw-bold gradient-text m-0 fs-4"><i class="bi bi-cpu me-2"></i>VisionScanner</span>
+                <div class="d-flex align-items-center">
+                    
+                    <!-- Language Selector (App) -->
+                    <div class="dropdown me-3">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle text-white border-0" type="button" data-bs-toggle="dropdown" id="btnLangApp">
+                            <i class="bi bi-globe me-1"></i> PT
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow">
+                            <li><a class="dropdown-item" href="#" onclick="mudarIdioma('pt')">Português (PT)</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="mudarIdioma('en')">English (EN)</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="mudarIdioma('es')">Español (ES)</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="text-end me-3 d-none d-md-block">
+                        <span class="text-white fw-bold d-block lh-1" id="userDisplay">Admin</span>
+                        <span class="text-muted small" style="font-size: 0.7rem;" data-i18n="lbl_auth">Autenticado</span>
+                    </div>
+                    <button onclick="logout()" class="btn btn-sm btn-outline-light rounded-pill px-3" data-i18n="btn_logout"><i class="bi bi-box-arrow-right"></i> Sair</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- Navegação Horizontal -->
+            <ul class="nav nav-pills nav-fill mb-4 glass-card p-2 shadow-sm gap-2" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-buscar" data-i18n="menu_search"><i class="bi bi-search me-1"></i> Identificar</button>
+                </li>
+                <li class="nav-item d-none" id="nav-cadastrar">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-cadastrar" data-i18n="menu_add"><i class="bi bi-plus-circle me-1"></i> Ensinar Ítem</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-perfil" data-i18n="menu_profile"><i class="bi bi-person-gear me-1"></i> Perfil</button>
+                </li>
+                <li class="nav-item d-none" id="nav-admin">
+                    <button class="nav-link text-warning" onclick="carregarUsuarios()" data-bs-toggle="pill" data-bs-target="#tab-admin" data-i18n="menu_admin"><i class="bi bi-shield-lock me-1"></i> Admin</button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                
+                <!-- ABA: BUSCAR -->
+                <div class="tab-pane fade show active" id="tab-buscar">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 col-lg-6">
+                            <div class="glass-card p-4 text-center mb-4">
+                                <h4 class="mb-4" data-i18n="tab_search_title">Escanear Produto</h4>
+                                <div class="upload-area mb-4" id="buscaUploadArea">
+                                    <div class="scanner-overlay"></div>
+                                    <i class="bi bi-cloud-arrow-up display-1 text-muted mb-2"></i>
+                                    <h5 data-i18n="upload_drag">Toque aqui ou arraste a imagem</h5>
+                                    <p class="text-muted small mb-0">Arquivos suportados: JPG, PNG, WEBP</p>
+                                    <img id="imgBuscaPreview" class="preview-image mx-auto w-100">
+                                    <input type="file" id="fotoBusca" accept="image/*" capture="camera" onchange="previewText(this, 'txtBuscaPreview', 'imgBuscaPreview')">
+                                </div>
+                                <p id="txtBuscaPreview" class="text-accent small fw-bold mb-3">Selecionar Arquivo</p>
+                                <button onclick="buscar()" id="btnBuscar" class="btn btn-fancy-success w-100 fs-5" data-i18n="btn_scan"><i class="bi bi-magic me-2"></i>Iniciar Varredura Neural</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Resultados -->
+                    <h5 class="mb-3 ps-2 border-start border-3 border-primary" id="titleResultados" style="display:none;" data-i18n="title_resultados">Resultados da Similaridade</h5>
+                    <div id="listaResultados" class="row g-4"></div>
+                </div>
+
+                <!-- ABA: CADASTRAR -->
+                <div class="tab-pane fade" id="tab-cadastrar">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 col-lg-6">
+                            <div class="glass-card p-4">
+                                <h4 class="mb-4 text-accent" data-i18n="tab_add_title"><i class="bi bi-database me-2"></i>Alimentar Base de Conhecimento</h4>
+                                
+                                <div class="form-floating mb-3">
+                                    <input type="text" id="cadCodigo" class="form-control" placeholder="SKU/Código" onblur="verificarProdutoExistente()">
+                                    <label for="cadCodigo" data-i18n="lbl_code">Código/SKU (Ex: PROD-123)</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input type="text" id="cadNome" class="form-control" placeholder="Nome">
+                                    <label for="cadNome" data-i18n="lbl_name">Nome do Produto</label>
+                                </div>
+                                
+                                <label class="small text-muted mb-2 fw-bold ms-1" data-i18n="lbl_ref_img">Imagem de Referência</label>
+                                <div class="upload-area mb-4" style="padding: 20px;" id="cadUploadArea">
+                                    <div class="scanner-overlay"></div>
+                                    <i class="bi bi-camera fs-3 text-muted"></i>
+                                    <p class="mb-0 small" id="txtCadPreview">Selecionar Arquivo</p>
+                                    <img id="imgCadPreview" class="preview-image mx-auto w-100">
+                                    <input type="file" id="cadFoto" accept="image/*" capture="camera" onchange="previewText(this, 'txtCadPreview', 'imgCadPreview')">
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button onclick="cadastrar()" id="btnCadastrar" class="btn btn-fancy w-100" data-i18n="btn_add">Registrar e Vetorizar <i class="bi bi-cloud-check ms-2"></i></button>
+                                    <button onclick="deletarProduto()" id="btnDelProduto" class="btn btn-outline-danger d-none px-3" title="Excluir este Produto e Imagens" data-i18n="btn_del"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABA: PERFIL -->
+                <div class="tab-pane fade" id="tab-perfil">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 col-lg-6">
+                            <div class="glass-card p-4">
+                                <h4 class="mb-3" data-i18n="tab_profile_title"><i class="bi bi-person-badge me-2"></i>Ajustes da Conta</h4>
+                                
+                                <div class="d-flex flex-wrap gap-2 mb-4 p-3 rounded" style="background: rgba(0,0,0,0.2);">
+                                    <div class="w-100 small text-muted fw-bold mb-1" data-i18n="lbl_my_perms">Meus Privilégios:</div>
+                                    <span id="badgePermSearch" class="badge bg-secondary d-none" data-i18n="lbl_perm_search"><i class="bi bi-search me-1"></i> Busca Ativa</span>
+                                    <span id="badgePermAdd" class="badge bg-primary d-none" data-i18n="lbl_perm_add"><i class="bi bi-plus-circle me-1"></i> Gravação</span>
+                                    <span id="badgePermDel" class="badge bg-danger d-none" data-i18n="lbl_perm_del"><i class="bi bi-trash me-1"></i> Exclusão</span>
+                                    <span id="badgePermAdmin" class="badge bg-warning text-dark d-none" data-i18n="lbl_perm_admin"><i class="bi bi-star-fill me-1"></i> SuperAdmin</span>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="small text-muted fw-bold ms-1 mb-1" data-i18n="lbl_recovery_email">E-mail de Recuperação</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0 border-secondary text-muted"><i class="bi bi-envelope"></i></span>
+                                        <input type="email" id="perfilEmail" class="form-control border-start-0 ps-0" placeholder="usuario@email.com">
+                                    </div>
+                                </div>
+                                
+                                <hr class="border-secondary mb-4">
+                                <h6 class="text-accent fw-bold mb-3" data-i18n="lbl_redefine_pass">Redefinição de Senha (Opcional)</h6>
+                                
+                                <div class="form-floating mb-3">
+                                    <input type="password" id="perfilSenhaAtual" class="form-control border-primary" placeholder="Senha">
+                                    <label for="perfilSenhaAtual" class="text-muted" data-i18n="lbl_curr_pass">Senha Atual Necessária</label>
+                                </div>
+                                
+                                <div class="row g-3 mb-4">
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="password" id="perfilNovaSenha" class="form-control" placeholder="Nova">
+                                            <label for="perfilNovaSenha" class="text-muted" data-i18n="lbl_new_pass">Nova Senha</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="password" id="perfilConfirmaSenha" class="form-control" placeholder="Repete">
+                                            <label for="perfilConfirmaSenha" class="text-muted" data-i18n="lbl_conf_pass">Repetir Senha</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button onclick="atualizarPerfil()" class="btn btn-outline-light w-100 fw-bold" data-i18n="btn_apply">Aplicar Modificações</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABA: ADMIN -->
+                <div class="tab-pane fade" id="tab-admin">
+                    <div class="glass-card p-4 mb-4">
+                        <h4 class="text-warning mb-4" data-i18n="tab_admin_title"><i class="bi bi-terminal me-2"></i>Controle de Acessos</h4>
+                        
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3"><input type="text" id="admLogin" class="form-control" placeholder="Definir Login"></div>
+                            <div class="col-md-3"><input type="password" id="admPass" class="form-control" placeholder="Definir Senha"></div>
+                            <div class="col-md-3"><input type="text" id="admNome" class="form-control" placeholder="Nome Completo"></div>
+                            <div class="col-md-3"><input type="email" id="admEmail" class="form-control" placeholder="Email"></div>
+                            
+                            <div class="col-md-4 mt-3">
+                                <label class="small text-muted ms-1 mb-1" data-i18n="lbl_daily_quota">Cota Diária (0=Livre)</label>
+                                <input type="number" id="admLimite" class="form-control" value="0" min="0">
+                            </div>
+                            
+                            <div class="col-md-4 mt-3 pt-4">
+                                <div class="form-check form-switch form-check-inline form-check-reverse">
+            <input class="form-check-input" type="checkbox" role="switch" id="permSearch" checked>
+            <label class="form-check-label text-light me-2 mb-0" for="permSearch" data-i18n="lbl_perm_search_q">Busca?</label>
+          </div>
+          <div class="form-check form-switch form-check-inline form-check-reverse">
+            <input class="form-check-input" type="checkbox" role="switch" id="permAdd">
+            <label class="form-check-label text-light me-2 mb-0" for="permAdd" data-i18n="lbl_perm_add_q">Add?</label>
+          </div>
+                            </div>
+                            <div class="col-md-4 mt-3 pt-4 text-end">
+                                <div class="form-check form-switch form-check-inline form-check-reverse">
+            <input class="form-check-input" type="checkbox" role="switch" id="permDel">
+            <label class="form-check-label text-danger me-2 mb-0" for="permDel" data-i18n="lbl_perm_del_q">Del?</label>
+          </div>
+          <div class="form-check form-switch form-check-inline form-check-reverse">
+            <input class="form-check-input" type="checkbox" role="switch" id="permAdmin">
+            <label class="form-check-label text-warning me-2 mb-0" for="permAdmin" data-i18n="lbl_perm_admin_q">Admin?</label>
+          </div>
+                                <button onclick="salvarUsuario()" class="btn btn-primary ms-2" data-i18n="btn_save"><i class="bi bi-save"></i> Gravar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card overflow-hidden">
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover mb-0 align-middle text-center">
+                                <thead style="background: rgba(0,0,0,0.3);">
+                                    <tr>
+                                        <th data-i18n="tb_head_user">Usuário</th>
+                                        <th data-i18n="tb_head_uso">Uso Hoje</th>
+                                        <th data-i18n="tb_head_cap">Capabilities</th>
+                                        <th data-i18n="tb_head_action">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelaUsuarios"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Novo Painel: Servidor de E-mail SMTP -->
+                    <div class="glass-card p-4 mt-4">
+                        <h4 class="text-accent mb-4" data-i18n="tab_admin_smtp_title"><i class="bi bi-envelope-at me-2"></i>Configuração de E-mail de envio (SMTP)</h4>
+                        <p class="small text-muted mb-3" data-i18n="tab_admin_smtp_desc">As credenciais aqui salvas serão encriptadas na pasta matriz usando a AES do módulo Fernet e serão utilizadas para enviar códigos de segurança.</p>
+                        
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <div class="form-floating text-dark">
+                                    <input type="email" id="smtpEmail" class="form-control" placeholder="E-mail" style="color:white;">
+                                    <label for="smtpEmail" class="text-muted" data-i18n="lbl_smtp_email">Seu E-mail Emissor</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating text-dark">
+                                    <input type="password" id="smtpPass" class="form-control" placeholder="Senha App" style="color:white;">
+                                    <label for="smtpPass" class="text-muted" data-i18n="lbl_smtp_pass">Sua Senha (App)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating text-dark">
+                                    <input type="text" id="smtpServer" class="form-control" placeholder="Servidor" value="smtp.gmail.com" style="color:white;">
+                                    <label for="smtpServer" class="text-muted" data-i18n="lbl_smtp_host">Servidor (Host)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating text-dark">
+                                    <input type="number" id="smtpPort" class="form-control" placeholder="Porta" value="587" style="color:white;">
+                                    <label for="smtpPort" class="text-muted" data-i18n="lbl_smtp_port">Porta</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 text-end mt-4">
+                                <button onclick="salvarConfigEmail()" class="btn btn-fancy-success px-4 fw-bold" data-i18n="btn_smtp_save"><i class="bi bi-shield-lock-fill me-2"></i>Criptografar e Salvar no HD</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-end mt-5">
+                        <button onclick="zerar()" class="btn btn-outline-danger shadow-sm" data-i18n="btn_wipe"><i class="bi bi-exclamation-triangle-fill me-2"></i>WIPE COMPLETO DO BANCO (DANGER)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Base (Recuperação) -->
+    <div class="modal fade" id="modalRecuperacao" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="glass-card modal-content border-0 p-3" style="background: rgba(15, 23, 42, 0.95);">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-accent" data-i18n="mod_rec_title"><i class="bi bi-shield-lock me-2"></i>Recuperação de Acesso</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="recStep1">
+                        <p class="text-muted small mb-4" data-i18n="mod_rec_step1_desc">Digite o e-mail cadastrado na sua conta. Um código seguro será transmitido.</p>
+                        <div class="form-floating mb-3">
+                            <input type="email" id="recEmail" class="form-control border-secondary" placeholder="seu@email.com">
+                            <label for="recEmail" class="text-muted" data-i18n="lbl_recovery_email">E-mail de Resgate</label>
+                        </div>
+                        <button onclick="solicitarCodigo()" id="btnRecSolicitar" class="btn btn-fancy w-100" data-i18n="mod_rec_btn1">Disparar Token de Resgate <i class="bi bi-send ms-1"></i></button>
+                    </div>
+                    
+                    <div id="recStep2" style="display:none;">
+                        <div class="alert alert-success d-flex align-items-center p-2 mb-4 fs-6" style="background: rgba(16, 185, 129, 0.2); border: 1px solid var(--success);">
+                            <i class="bi bi-check-circle-fill me-2 text-success"></i>
+                            <div data-i18n="mod_rec_step2_desc">Código encaminhado para a rede. Verifique seu correio (Ou o terminal).</div>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input type="text" id="recCodigo" class="form-control fw-bold tracking-widest text-center fs-4" placeholder="0000" maxlength="4" autocomplete="off">
+                            <label for="recCodigo" class="text-muted" data-i18n="lbl_pin">PIN (4 Dígitos)</label>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input type="password" id="recNovaSenha" class="form-control" placeholder="***">
+                            <label for="recNovaSenha" class="text-muted" data-i18n="lbl_final_pass">Senha Definitiva</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" id="recConfirmaSenha" class="form-control" placeholder="***">
+                            <label for="recConfirmaSenha" class="text-muted" data-i18n="lbl_final_conf">Confirmação de Senha</label>
+                        </div>
+                        
+                        <button onclick="confirmarRecuperacao()" id="btnRecConfirmar" class="btn btn-success w-100 fw-bold pb-2 pt-2" data-i18n="btn_verify">VALIDAR E RECONECTAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de Notificações -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body d-flex align-items-center" id="toastMessage">
+              <i class="bi bi-info-circle me-2 fs-5 text-accent" id="toastIcon"></i> <span id="toastText">Mensagem</span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        </div>
+    </div>
+
+    <!-- Scripts da Aplicação -->
+    <script src="static/vendor/bootstrap.bundle.min.js"></script>
+    <script src="static/i18n.js"></script>
+    <script src="static/app.js"></script>
+</body>
+</html>

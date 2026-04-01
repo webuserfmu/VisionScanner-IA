@@ -1,0 +1,2 @@
+[tool.pylance]
+pythonVersion = "3.13"

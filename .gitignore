@@ -1,0 +1,22 @@
+# Ignorar arquivos do Sistema e Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignorar o Ambiente Virtual
+.venv/
+venv/
+env/
+
+# IGNORAR SEGREDOS, SENHAS E CREDENCIAIS (CRÍTICO)
+.env
+Backoffice/secret.key
+Backoffice/config.enc
+Backoffice/cert.pem
+Backoffice/key.pem
+Backoffice/instance/
+
+# IGNORAR ARQUIVOS DA REDE NEURAL E DADOS PESADOS
+Backoffice/imagens_salvas/
+Backoffice/meu_cerebro_visual.index
+Backoffice/modelo_mobilenetv2_local.keras

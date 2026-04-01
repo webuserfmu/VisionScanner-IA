@@ -48,6 +48,15 @@ def create_app(config_class=Config):
 
     with app.app_context():
         db.create_all()
+        
+        # Migração Segura de Tabela (Adiciona coluna de tema sem quebrar o BD)
+        from sqlalchemy import text
+        try:
+            db.session.execute(text("ALTER TABLE user ADD COLUMN tema_perfil VARCHAR(20) DEFAULT 'dark'"))
+            db.session.commit()
+            print("Migração Concluída: Coluna de Temas adicionada aos usuários.")
+        except Exception:
+            db.session.rollback() # A coluna já existe, segue o jogo.
         # Inicializa Super Admin se não existir
         if not User.query.filter_by(login='admin').first():
             admin_user = User(

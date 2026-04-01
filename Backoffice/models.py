@@ -14,6 +14,7 @@ class User(db.Model):
     perm_del = db.Column(db.Boolean, default=True)
     perm_admin = db.Column(db.Boolean, default=False)
     recovery_code = db.Column(db.String(10), nullable=True)
+    tema_perfil = db.Column(db.String(20), default='dark')
 
 class Product(db.Model):
     id_faiss = db.Column(db.Integer, primary_key=True)

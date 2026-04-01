@@ -29,6 +29,7 @@ def login():
             },
             'login': user.login,
             'email': user.email,
+            'tema': user.tema_perfil,
             'access_token': access_token
         })
     return jsonify({'sucesso': False, 'mensagem': 'Login inválido'}), 401
@@ -43,6 +44,7 @@ def atualizar_perfil():
     senha_atual = dados.get('senha_atual')
     novo_email = dados.get('novo_email')
     nova_senha = dados.get('nova_senha')
+    novo_tema = dados.get('tema')
 
     user = User.query.filter_by(login=login).first()
     if not user: return jsonify({'erro': 'Usuário não encontrado'}), 404
@@ -58,6 +60,10 @@ def atualizar_perfil():
     if novo_email and novo_email != user.email:
         user.email = novo_email
         msg.append("Email atualizado")
+
+    if novo_tema and novo_tema != user.tema_perfil:
+        user.tema_perfil = novo_tema
+        msg.append("Tema aplicado")
 
     if not msg: return jsonify({'mensagem': 'Nada foi alterado.'})
 

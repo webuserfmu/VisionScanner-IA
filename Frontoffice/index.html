@@ -183,6 +183,16 @@
                                 </div>
                                 
                                 <div class="mb-4">
+                                    <label class="small text-muted fw-bold ms-1 mb-1" data-i18n="lbl_theme">Paleta Visual do Sistema</label>
+                                    <select id="perfilTema" class="form-select bg-transparent text-white border-primary">
+                                        <option value="dark" data-i18n="opt_theme_dark" class="text-dark">Cosmic Dark (Padrão)</option>
+                                        <option value="light" data-i18n="opt_theme_light" class="text-dark">Modo Claro (Light)</option>
+                                        <option value="dracula" data-i18n="opt_theme_dracula" class="text-dark">Dracula (Roxo Neon)</option>
+                                        <option value="matrix" data-i18n="opt_theme_matrix" class="text-dark">Matrix (Verde Hacker)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-4">
                                     <label class="small text-muted fw-bold ms-1 mb-1" data-i18n="lbl_recovery_email">E-mail de Recuperação</label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-transparent border-end-0 border-secondary text-muted"><i class="bi bi-envelope"></i></span>
@@ -231,7 +241,7 @@
                             <div class="col-md-3"><input type="email" id="admEmail" class="form-control" placeholder="Email"></div>
                             
                             <div class="col-md-4 mt-3">
-                                <label class="small text-muted ms-1 mb-1" data-i18n="lbl_daily_quota">Cota Diária (0=Livre)</label>
+                                <label class="small text-muted ms-1 mb-1" data-i18n="lbl_daily_quota">Limite de Buscas Diárias (0 = Ilimitado)</label>
                                 <input type="number" id="admLimite" class="form-control" value="0" min="0">
                             </div>
                             

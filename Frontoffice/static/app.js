@@ -171,6 +171,12 @@ function setupUI(user) {
     
     document.getElementById('userDisplay').innerText = user.usuario || user.login;
     
+    if(user.tema) {
+        document.body.className = '';
+        if(user.tema !== 'dark') document.body.classList.add(`theme-${user.tema}`);
+        if(document.getElementById('perfilTema')) document.getElementById('perfilTema').value = user.tema;
+    }
+    
     if(user.perms.search) document.getElementById('badgePermSearch').classList.remove('d-none');
     if(user.perms.add) document.getElementById('badgePermAdd').classList.remove('d-none');
     if(user.perms.del) document.getElementById('badgePermDel').classList.remove('d-none');
@@ -208,6 +214,7 @@ function previewText(input, displayId, imgPreviewId) {
 async function atualizarPerfil() {
     const s = JSON.parse(localStorage.getItem("ia_sessao"));
     const email = document.getElementById('perfilEmail').value;
+    const tema = document.getElementById('perfilTema').value;
     const senhaAtual = document.getElementById('perfilSenhaAtual').value;
     const novaSenha = document.getElementById('perfilNovaSenha').value;
     const confirmaSenha = document.getElementById('perfilConfirmaSenha').value;
@@ -215,7 +222,7 @@ async function atualizarPerfil() {
     if(novaSenha && !senhaAtual) return showToast("Digite a Senha Atual primeiro para poder criar uma Nova Senha.", "error");
     if(novaSenha && novaSenha !== confirmaSenha) return showToast("As senhas da confirmação não bateram.", "error");
 
-    const payload = { novo_email: email };
+    const payload = { novo_email: email, tema: tema };
     if(senhaAtual) payload.senha_atual = senhaAtual;
     if(novaSenha) payload.nova_senha = novaSenha;
 
@@ -228,7 +235,12 @@ async function atualizarPerfil() {
         if(res.ok && !json.erro) {
             showToast(json.mensagem, "success");
             s.email = email;
+            s.tema = tema;
             localStorage.setItem("ia_sessao", JSON.stringify(s));
+            
+            document.body.className = '';
+            if(tema !== 'dark') document.body.classList.add(`theme-${tema}`);
+
             document.getElementById('perfilSenhaAtual').value = "";
             document.getElementById('perfilNovaSenha').value = "";
             document.getElementById('perfilConfirmaSenha').value = "";

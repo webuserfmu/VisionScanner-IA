@@ -101,7 +101,7 @@ def zerar():
     return jsonify({'ok': True})
 
 
-@admin_bp.route('/email/config', methods=['POST'])
+@admin_bp.route('/email/config', methods=['GET', 'POST'])
 @jwt_required()
 def configurar_smtp():
     login = get_jwt_identity()
@@ -109,18 +109,42 @@ def configurar_smtp():
     if not user or not user.perm_admin:
         return jsonify({'erro': 'Acesso negado'}), 403
 
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ARQUIVO_CHAVE = os.path.join(BASE_DIR, 'secret.key')
+    ARQUIVO_CONFIG = os.path.join(BASE_DIR, 'config.enc')
+    
+    if request.method == 'GET':
+        if not os.path.exists(ARQUIVO_CHAVE) or not os.path.exists(ARQUIVO_CONFIG):
+            return jsonify({'email': '', 'smtp': 'smtp.gmail.com', 'porta': 587, 'has_senha': False})
+            
+        try:
+            with open(ARQUIVO_CHAVE, 'rb') as f:
+                chave = f.read()
+            cipher = Fernet(chave)
+            
+            with open(ARQUIVO_CONFIG, 'rb') as f:
+                encriptados = f.read()
+                
+            dados_json = cipher.decrypt(encriptados)
+            dados_smtp = json.loads(dados_json.decode('utf-8'))
+            
+            return jsonify({
+                'email': dados_smtp.get('EMAIL', ''),
+                'smtp': dados_smtp.get('SMTP_SERVER', 'smtp.gmail.com'),
+                'porta': dados_smtp.get('SMTP_PORT', 587),
+                'has_senha': bool(dados_smtp.get('SENHA'))
+            })
+        except Exception as e:
+            return jsonify({'erro': f'Falha interna ao ler config: {str(e)}'}), 500
+
     dados = request.json
     email = dados.get('email', '').strip()
     senha = dados.get('senha', '').strip()
     smtp = dados.get('smtp', 'smtp.gmail.com').strip()
     porta = str(dados.get('porta', '587')).strip()
 
-    if not email or not senha:
+    if not email or not (senha or os.path.exists(ARQUIVO_CONFIG)):
         return jsonify({'erro': 'E-mail e Senha de APP são obrigatórios'}), 400
-
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    ARQUIVO_CHAVE = os.path.join(BASE_DIR, 'secret.key')
-    ARQUIVO_CONFIG = os.path.join(BASE_DIR, 'config.enc')
 
     try:
         if not os.path.exists(ARQUIVO_CHAVE):
@@ -132,6 +156,15 @@ def configurar_smtp():
             chave = f.read()
 
         cipher = Fernet(chave)
+        
+        # If password is empty, maintain the current password
+        if not senha and os.path.exists(ARQUIVO_CONFIG):
+            with open(ARQUIVO_CONFIG, 'rb') as f:
+                encriptados_antigos = f.read()
+            dados_json_antigos = cipher.decrypt(encriptados_antigos)
+            dados_smtp_antigos = json.loads(dados_json_antigos.decode('utf-8'))
+            senha = dados_smtp_antigos.get('SENHA', '')
+
         dados_smtp = {"EMAIL": email, "SENHA": senha, "SMTP_SERVER": smtp, "SMTP_PORT": int(porta)}
         dados_json = json.dumps(dados_smtp).encode('utf-8')
         encriptados = cipher.encrypt(dados_json)
@@ -139,7 +172,6 @@ def configurar_smtp():
         with open(ARQUIVO_CONFIG, 'wb') as f:
             f.write(encriptados)
 
-        # Atualiza a memoria local do módulo email_service em runtime (Opcional, mas seguro)
         return jsonify({'mensagem': 'Configuração gravada no cofre com sucesso!'})
 
     except Exception as e:

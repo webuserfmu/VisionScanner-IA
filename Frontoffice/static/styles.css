@@ -112,6 +112,10 @@ h1, h2, h3, h4, h5 { font-weight: 800; letter-spacing: -0.5px; }
     -webkit-text-fill-color: transparent;
 }
 
+/* Make Bootstrap text colors dynamically adapt to our themes */
+.text-muted { color: var(--text-muted) !important; }
+.text-light, .text-dark, .text-white { color: var(--text-main) !important; }
+
 /* Modern Inputs */
 .form-control, .form-select, .form-control:focus, .form-select:focus {
     background-color: var(--input-bg);
@@ -151,6 +155,17 @@ h1, h2, h3, h4, h5 { font-weight: 800; letter-spacing: -0.5px; }
 
 .btn-fancy-success { background: linear-gradient(45deg, var(--fancy-success-1), var(--fancy-success-2)); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
 .btn-fancy-success:hover { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6); }
+
+/* Thematic Outline Buttons */
+.btn-outline-light {
+    color: var(--text-main) !important;
+    border-color: var(--text-main) !important;
+}
+.btn-outline-light:hover {
+    background-color: var(--text-main) !important;
+    color: var(--primary-bg) !important;
+    border-color: var(--text-main) !important;
+}
 
 /* Navigation Pills */
 .nav-pills .nav-link {

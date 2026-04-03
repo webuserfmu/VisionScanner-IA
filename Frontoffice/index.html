@@ -175,7 +175,7 @@
                                 <h4 class="mb-3" data-i18n="tab_profile_title"><i class="bi bi-person-badge me-2"></i>Ajustes da Conta</h4>
                                 
                                 <div class="d-flex flex-wrap gap-2 mb-4 p-3 rounded" style="background: rgba(0,0,0,0.2);">
-                                    <div class="w-100 small text-muted fw-bold mb-1" data-i18n="lbl_my_perms">Meus Privilégios:</div>
+                                    <div class="w-100 small text-light fw-bold mb-1" data-i18n="lbl_my_perms">Meus Privilégios:</div>
                                     <span id="badgePermSearch" class="badge bg-secondary d-none" data-i18n="lbl_perm_search"><i class="bi bi-search me-1"></i> Busca Ativa</span>
                                     <span id="badgePermAdd" class="badge bg-primary d-none" data-i18n="lbl_perm_add"><i class="bi bi-plus-circle me-1"></i> Gravação</span>
                                     <span id="badgePermDel" class="badge bg-danger d-none" data-i18n="lbl_perm_del"><i class="bi bi-trash me-1"></i> Exclusão</span>
@@ -183,7 +183,7 @@
                                 </div>
                                 
                                 <div class="mb-4">
-                                    <label class="small text-muted fw-bold ms-1 mb-1" data-i18n="lbl_theme">Paleta Visual do Sistema</label>
+                                    <label class="small text-light fw-bold ms-1 mb-1" data-i18n="lbl_theme">Paleta Visual do Sistema</label>
                                     <select id="perfilTema" class="form-select border-primary">
                                         <option value="dark" data-i18n="opt_theme_dark">Cosmic Dark (Padrão)</option>
                                         <option value="light" data-i18n="opt_theme_light">Modo Claro (Light)</option>
@@ -193,9 +193,9 @@
                                 </div>
                                 
                                 <div class="mb-4">
-                                    <label class="small text-muted fw-bold ms-1 mb-1" data-i18n="lbl_recovery_email">E-mail de Recuperação</label>
+                                    <label class="small text-light fw-bold ms-1 mb-1" data-i18n="lbl_recovery_email">E-mail de Recuperação</label>
                                     <div class="input-group">
-                                        <span class="input-group-text bg-transparent border-end-0 border-secondary text-muted"><i class="bi bi-envelope"></i></span>
+                                        <span class="input-group-text bg-transparent border-end-0 border-secondary text-light"><i class="bi bi-envelope"></i></span>
                                         <input type="email" id="perfilEmail" class="form-control border-start-0 ps-0" placeholder="usuario@email.com">
                                     </div>
                                 </div>
@@ -205,20 +205,20 @@
                                 
                                 <div class="form-floating mb-3">
                                     <input type="password" id="perfilSenhaAtual" class="form-control border-primary" placeholder="Senha">
-                                    <label for="perfilSenhaAtual" class="text-muted" data-i18n="lbl_curr_pass">Senha Atual Necessária</label>
+                                    <label for="perfilSenhaAtual" class="text-light" data-i18n="lbl_curr_pass">Senha Atual Necessária</label>
                                 </div>
                                 
                                 <div class="row g-3 mb-4">
                                     <div class="col-6">
                                         <div class="form-floating">
                                             <input type="password" id="perfilNovaSenha" class="form-control" placeholder="Nova">
-                                            <label for="perfilNovaSenha" class="text-muted" data-i18n="lbl_new_pass">Nova Senha</label>
+                                            <label for="perfilNovaSenha" class="text-light" data-i18n="lbl_new_pass">Nova Senha</label>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-floating">
                                             <input type="password" id="perfilConfirmaSenha" class="form-control" placeholder="Repete">
-                                            <label for="perfilConfirmaSenha" class="text-muted" data-i18n="lbl_conf_pass">Repetir Senha</label>
+                                            <label for="perfilConfirmaSenha" class="text-light" data-i18n="lbl_conf_pass">Repetir Senha</label>
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +241,7 @@
                             <div class="col-md-3"><input type="email" id="admEmail" class="form-control" placeholder="Email"></div>
                             
                             <div class="col-md-4 mt-3">
-                                <label class="small text-muted ms-1 mb-1" data-i18n="lbl_daily_quota">Limite de Buscas Diárias (0 = Ilimitado)</label>
+                                <label class="small text-light fw-bold ms-1 mb-1" data-i18n="lbl_daily_quota">Limite de Buscas Diárias (0 = Ilimitado)</label>
                                 <input type="number" id="admLimite" class="form-control" value="0" min="0">
                             </div>
                             
@@ -292,27 +292,27 @@
                         
                         <div class="row g-3 align-items-center">
                             <div class="col-md-3">
-                                <div class="form-floating text-dark">
-                                    <input type="email" id="smtpEmail" class="form-control" placeholder="E-mail" style="color:white;">
-                                    <label for="smtpEmail" class="text-muted" data-i18n="lbl_smtp_email">Seu E-mail Emissor</label>
+                                <div class="form-floating">
+                                    <input type="email" id="smtpEmail" class="form-control" placeholder="E-mail">
+                                    <label for="smtpEmail" class="text-light" data-i18n="lbl_smtp_email">Seu E-mail Emissor</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="form-floating text-dark">
-                                    <input type="password" id="smtpPass" class="form-control" placeholder="Senha App" style="color:white;">
-                                    <label for="smtpPass" class="text-muted" data-i18n="lbl_smtp_pass">Sua Senha (App)</label>
+                                <div class="form-floating">
+                                    <input type="password" id="smtpPass" class="form-control" placeholder="Senha App">
+                                    <label for="smtpPass" class="text-light" data-i18n="lbl_smtp_pass">Sua Senha (App)</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="form-floating text-dark">
-                                    <input type="text" id="smtpServer" class="form-control" placeholder="Servidor" value="smtp.gmail.com" style="color:white;">
-                                    <label for="smtpServer" class="text-muted" data-i18n="lbl_smtp_host">Servidor (Host)</label>
+                                <div class="form-floating">
+                                    <input type="text" id="smtpServer" class="form-control" placeholder="Servidor" value="smtp.gmail.com">
+                                    <label for="smtpServer" class="text-light" data-i18n="lbl_smtp_host">Servidor (Host)</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="form-floating text-dark">
-                                    <input type="number" id="smtpPort" class="form-control" placeholder="Porta" value="587" style="color:white;">
-                                    <label for="smtpPort" class="text-muted" data-i18n="lbl_smtp_port">Porta</label>
+                                <div class="form-floating">
+                                    <input type="number" id="smtpPort" class="form-control" placeholder="Porta" value="587">
+                                    <label for="smtpPort" class="text-light" data-i18n="lbl_smtp_port">Porta</label>
                                 </div>
                             </div>
                             

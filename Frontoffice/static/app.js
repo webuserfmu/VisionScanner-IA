@@ -483,6 +483,7 @@ async function deletarProduto() {
 
 // --- ADMIN ---
 async function carregarUsuarios() {
+    carregarConfigEmail();
     try {
         const res = await fetchAutenticado(`${API}/usuarios`);
         const lista = await res.json();
@@ -570,6 +571,25 @@ async function zerar() {
 }
 
 // --- CONFIGURAÇÃO DE EMAIL (ADMIN) ---
+async function carregarConfigEmail() {
+    try {
+        const res = await fetchAutenticado(`${API}/email/config`);
+        if (!res.ok) return;
+        const config = await res.json();
+        
+        if (config.email) document.getElementById('smtpEmail').value = config.email;
+        if (config.smtp) document.getElementById('smtpServer').value = config.smtp;
+        if (config.porta) document.getElementById('smtpPort').value = config.porta;
+        // Don't set password field for security, but the backend knows if it exists via has_senha (could be used to show a placeholder)
+        if (config.has_senha) {
+            document.getElementById('smtpPass').placeholder = "******** (Salva)";
+        }
+    } catch (e) {
+        console.error("Falha ao carregar configuração de e-mail:", e);
+    }
+}
+
+// --- CONFIGURAÇÃO DE EMAIL (ADMIN) ---
 async function salvarConfigEmail() {
     const dados = {
         email: document.getElementById('smtpEmail').value,
@@ -578,7 +598,7 @@ async function salvarConfigEmail() {
         porta: document.getElementById('smtpPort').value
     };
 
-    if(!dados.email || !dados.senha) return showToast("E-mail e Senha são obrigatórios.", "error");
+    if(!dados.email) return showToast("E-mail é obrigatório.", "error");
 
     try {
         const res = await fetchAutenticado(`${API}/email/config`, { method: 'POST', body: JSON.stringify(dados) });

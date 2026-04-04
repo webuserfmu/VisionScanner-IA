@@ -30,7 +30,11 @@ function mudarIdioma(lang) {
     Object.keys(window.i18n[lang]).forEach(key => {
         const uiElems = document.querySelectorAll(`[data-i18n="${key}"]`);
         uiElems.forEach(el => {
-            el.innerHTML = window.i18n[lang][key];
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = window.i18n[lang][key];
+            } else {
+                el.innerHTML = window.i18n[lang][key];
+            }
         });
     });
 
@@ -194,7 +198,7 @@ function setupUI(user) {
 function previewText(input, displayId, imgPreviewId) {
     const txt = document.getElementById(displayId);
     if(input.files && input.files[0]) {
-        txt.innerText = "Anexado: " + input.files[0].name;
+        txt.innerText = window.i18n[currentLang]['lbl_attached'] + input.files[0].name;
         if(imgPreviewId) {
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -205,7 +209,7 @@ function previewText(input, displayId, imgPreviewId) {
             reader.readAsDataURL(input.files[0]);
         }
     } else {
-        txt.innerText = "Selecionar Arquivo";
+        txt.innerText = window.i18n[currentLang]['lbl_select_file'];
         if(imgPreviewId) document.getElementById(imgPreviewId).style.display = 'none';
     }
 }
@@ -442,7 +446,7 @@ async function cadastrar() {
         document.getElementById('cadNome').value = "";
         document.getElementById('cadNome').disabled = false;
         if(btnDel) btnDel.classList.add('d-none');
-        document.getElementById('txtCadPreview').innerText = "Selecionar Arquivo";
+        document.getElementById('txtCadPreview').innerText = window.i18n[currentLang]['lbl_select_file'];
         if (document.getElementById('imgCadPreview')) document.getElementById('imgCadPreview').style.display='none';
     } catch (err) {
         showToast(err.message, "error");
@@ -492,7 +496,8 @@ async function carregarUsuarios() {
 
         let html = "";
         lista.forEach(u => {
-            let limite = u.limite_diario === 0 ? '<span class="badge bg-secondary">Ilimitado</span>' : `${u.uso_hoje}/${u.limite_diario}`;
+            let limitTxt = window.i18n[currentLang]['lbl_unlimited'];
+            let limite = u.limite_diario === 0 ? `<span class="badge bg-secondary">${limitTxt}</span>` : `${u.uso_hoje}/${u.limite_diario}`;
             let badges = "";
             if(u.perms.search) badges += '<span class="text-success mx-1 v-tooltip" title="Buscar"><i class="bi bi-search"></i></span>'; 
             if(u.perms.add) badges += '<span class="text-primary mx-1 v-tooltip" title="Salvar Info"><i class="bi bi-plus-circle"></i></span>'; 
@@ -501,7 +506,7 @@ async function carregarUsuarios() {
             
             const s = JSON.parse(localStorage.getItem("ia_sessao"));
             let btnDel = `<button onclick="delUser('${u.login}')" class="btn btn-sm btn-outline-danger px-2 py-1 lh-1"><i class="bi bi-person-x"></i></button>`;
-            if(u.login === s.login) btnDel = `<span class="badge bg-dark">Logado</span>`;
+            if(u.login === s.login) btnDel = `<span class="badge bg-dark">${window.i18n[currentLang]['lbl_logged_in']}</span>`;
             
             html += `<tr>
                 <td class="fw-bold text-accent">${u.login}</td>

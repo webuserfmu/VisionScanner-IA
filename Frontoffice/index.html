@@ -120,11 +120,11 @@
                                     <div class="scanner-overlay"></div>
                                     <i class="bi bi-cloud-arrow-up display-1 text-muted mb-2"></i>
                                     <h5 data-i18n="upload_drag">Toque aqui ou arraste a imagem</h5>
-                                    <p class="text-muted small mb-0">Arquivos suportados: JPG, PNG, WEBP</p>
+                                    <p class="text-muted small mb-0" data-i18n="lbl_supported_files">Arquivos suportados: JPG, PNG, WEBP</p>
                                     <img id="imgBuscaPreview" class="preview-image mx-auto w-100">
                                     <input type="file" id="fotoBusca" accept="image/*" capture="camera" onchange="previewText(this, 'txtBuscaPreview', 'imgBuscaPreview')">
                                 </div>
-                                <p id="txtBuscaPreview" class="text-accent small fw-bold mb-3">Selecionar Arquivo</p>
+                                <p id="txtBuscaPreview" class="text-accent small fw-bold mb-3" data-i18n="lbl_select_file">Selecionar Arquivo</p>
                                 <button onclick="buscar()" id="btnBuscar" class="btn btn-fancy-success w-100 fs-5" data-i18n="btn_scan"><i class="bi bi-magic me-2"></i>Iniciar Varredura Neural</button>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                                 <div class="upload-area mb-4" style="padding: 20px;" id="cadUploadArea">
                                     <div class="scanner-overlay"></div>
                                     <i class="bi bi-camera fs-3 text-muted"></i>
-                                    <p class="mb-0 small" id="txtCadPreview">Selecionar Arquivo</p>
+                                    <p class="mb-0 small" id="txtCadPreview" data-i18n="lbl_select_file">Selecionar Arquivo</p>
                                     <img id="imgCadPreview" class="preview-image mx-auto w-100">
                                     <input type="file" id="cadFoto" accept="image/*" capture="camera" onchange="previewText(this, 'txtCadPreview', 'imgCadPreview')">
                                 </div>
@@ -235,10 +235,10 @@
                         <h4 class="text-warning mb-4" data-i18n="tab_admin_title"><i class="bi bi-terminal me-2"></i>Controle de Acessos</h4>
                         
                         <div class="row g-3 align-items-center">
-                            <div class="col-md-3"><input type="text" id="admLogin" class="form-control" placeholder="Definir Login"></div>
-                            <div class="col-md-3"><input type="password" id="admPass" class="form-control" placeholder="Definir Senha"></div>
-                            <div class="col-md-3"><input type="text" id="admNome" class="form-control" placeholder="Nome Completo"></div>
-                            <div class="col-md-3"><input type="email" id="admEmail" class="form-control" placeholder="Email"></div>
+                            <div class="col-md-3"><input type="text" id="admLogin" class="form-control" placeholder="Definir Login" data-i18n="lbl_def_user"></div>
+                            <div class="col-md-3"><input type="password" id="admPass" class="form-control" placeholder="Definir Senha" data-i18n="lbl_def_pass"></div>
+                            <div class="col-md-3"><input type="text" id="admNome" class="form-control" placeholder="Nome Completo" data-i18n="lbl_def_name"></div>
+                            <div class="col-md-3"><input type="email" id="admEmail" class="form-control" placeholder="Email" data-i18n="lbl_def_email"></div>
                             
                             <div class="col-md-4 mt-3">
                                 <label class="small text-light fw-bold ms-1 mb-1" data-i18n="lbl_daily_quota">Limite de Buscas Diárias (0 = Ilimitado)</label>

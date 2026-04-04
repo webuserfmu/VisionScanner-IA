@@ -14,7 +14,7 @@ const translations = {
         // --- BUSCA ---
         "tab_search_title": '<i class="bi bi-magic me-2"></i>Pesquisa Visual Rápida',
         "tab_search_desc": "Envie uma foto ou arquivo para que a IA compare milhares de vetores em frações de segundo.",
-        "upload_drag": 'Clique aqui ou arraste a Imagem<br><small class="text-muted" id="txtBuscaPreview">Selecionar Arquivo</small>',
+        "upload_drag": "Clique aqui ou arraste a Imagem",
         "btn_scan": '<i class="bi bi-magic me-2"></i>Iniciar Varredura Neural',
         // --- CADASTRO ---
         "tab_add_title": '<i class="bi bi-cloud-upload me-2"></i>Cadastro de Produto Novo',
@@ -23,7 +23,8 @@ const translations = {
         "btn_add": 'Registrar e Vetorizar <i class="bi bi-cloud-check ms-2"></i>',
         "btn_add_extra": 'Adicionar Foto Extra ao Produto <i class="bi bi-images ms-2"></i>',
         "btn_del": '<i class="bi bi-trash-fill me-2"></i>Apagar Produto Definitivamente',
-        "upload_drag_cad": 'Anexe a Imagem do Produto<br><small class="text-muted" id="txtCadPreview">Selecionar Arquivo</small>',
+        "upload_drag_cad": "Anexe a Imagem do Produto",
+        "lbl_ref_img": "Imagem de Referência",
         // --- PERFIL ---
         "tab_profile_title": '<i class="bi bi-person-badge me-2"></i>Ajustes da Conta',
         "lbl_my_perms": "Meus Privilégios:",
@@ -89,7 +90,13 @@ const translations = {
         "MSG_SESSAO_EXPIRADA": "Sessão expirada. Faça login novamente.",
         "MSG_OFFLINE_REC": "Bunker Local: Sistema Operando Offline. (Recuperação de Senha Oculta)",
         "MSG_ONLINE_ON": "Conexão com a Internet Restabelecida.",
-        "Não é possível eliminar o último Administrador do sistema.": "Ação negada: Você não pode eliminar o único Administrador do sistema."
+        "Não é possível eliminar o último Administrador do sistema.": "Ação negada: Você não pode eliminar o único Administrador do sistema.",
+        "lbl_auth": "Autenticado",
+        "lbl_select_file": "Selecionar Arquivo",
+        "lbl_attached": "Anexado: ",
+        "lbl_supported_files": "Arquivos suportados: JPG, PNG, WEBP",
+        "lbl_unlimited": "Ilimitado",
+        "lbl_logged_in": "Logado"
     },
     "en": {
         // --- LOGIN E TOPO ---
@@ -106,7 +113,7 @@ const translations = {
         // --- BUSCA ---
         "tab_search_title": '<i class="bi bi-magic me-2"></i>Fast Visual Search',
         "tab_search_desc": "Upload a photo or file for the AI to compare thousands of vectors in fractions of a second.",
-        "upload_drag": 'Click or drag Image here<br><small class="text-muted" id="txtBuscaPreview">Select File</small>',
+        "upload_drag": "Click or drag Image here",
         "btn_scan": '<i class="bi bi-magic me-2"></i>Start Neural Scan',
         // --- CADASTRO ---
         "tab_add_title": '<i class="bi bi-cloud-upload me-2"></i>Register New Product',
@@ -115,7 +122,8 @@ const translations = {
         "btn_add": 'Register and Vectorize <i class="bi bi-cloud-check ms-2"></i>',
         "btn_add_extra": 'Add Extra Photo to Product <i class="bi bi-images ms-2"></i>',
         "btn_del": '<i class="bi bi-trash-fill me-2"></i>Permanently Delete Product',
-        "upload_drag_cad": 'Attach Product Image<br><small class="text-muted" id="txtCadPreview">Select File</small>',
+        "upload_drag_cad": "Attach Product Image",
+        "lbl_ref_img": "Reference Image",
         // --- PERFIL ---
         "tab_profile_title": '<i class="bi bi-person-badge me-2"></i>Account Settings',
         "lbl_my_perms": "My Privileges:",
@@ -180,7 +188,13 @@ const translations = {
         "MSG_SESSAO_EXPIRADA": "Session expired. Please log in again.",
         "MSG_OFFLINE_REC": "Local Bunker: System Operating Offline. (Password Recovery Hidden)",
         "MSG_ONLINE_ON": "Internet Connection Restored.",
-        "Não é possível eliminar o último Administrador do sistema.": "Action denied: You cannot delete the only Administrator of the system."
+        "Não é possível eliminar o último Administrador do sistema.": "Action denied: You cannot delete the only Administrator of the system.",
+        "lbl_auth": "Authenticated",
+        "lbl_select_file": "Select File",
+        "lbl_attached": "Attached: ",
+        "lbl_supported_files": "Supported files: JPG, PNG, WEBP",
+        "lbl_unlimited": "Unlimited",
+        "lbl_logged_in": "Logged in"
     },
     "es": {
         // --- LOGIN E TOPO ---
@@ -197,7 +211,7 @@ const translations = {
         // --- BUSCA ---
         "tab_search_title": '<i class="bi bi-magic me-2"></i>Búsqueda Visual Rápida',
         "tab_search_desc": "Sube una foto o archivo para que la IA compare miles de vectores en fracciones de segundo.",
-        "upload_drag": 'Clica o arrastra la Imagen aquí<br><small class="text-muted" id="txtBuscaPreview">Seleccionar Archivo</small>',
+        "upload_drag": "Clica o arrastra la Imagen aquí",
         "btn_scan": '<i class="bi bi-magic me-2"></i>Iniciar Escaneo Neuronal',
         // --- CADASTRO ---
         "tab_add_title": '<i class="bi bi-cloud-upload me-2"></i>Registro de Nuevo Producto',
@@ -206,7 +220,8 @@ const translations = {
         "btn_add": 'Registrar y Vectorizar <i class="bi bi-cloud-check ms-2"></i>',
         "btn_add_extra": 'Agregar Foto Extra al Producto <i class="bi bi-images ms-2"></i>',
         "btn_del": '<i class="bi bi-trash-fill me-2"></i>Borrar Producto Definitivamente',
-        "upload_drag_cad": 'Adjunte la Imagen del Producto<br><small class="text-muted" id="txtCadPreview">Seleccionar Archivo</small>',
+        "upload_drag_cad": "Adjunte la Imagen del Producto",
+        "lbl_ref_img": "Imagen de Referencia",
         // --- PERFIL ---
         "tab_profile_title": '<i class="bi bi-person-badge me-2"></i>Ajustes de la Cuenta',
         "lbl_my_perms": "Mis Privilegios:",
@@ -271,7 +286,13 @@ const translations = {
         "MSG_SESSAO_EXPIRADA": "Sesión expirada. Por favor inicie sesión de nuevo.",
         "MSG_OFFLINE_REC": "Búnker Local: Sistema Operando Offline. (Recuperación Oculta)",
         "MSG_ONLINE_ON": "Conexión a Internet Restablecida.",
-        "Não é possível eliminar o último Administrador do sistema.": "Acción denegada: No puedes eliminar al único Administrador del sistema."
+        "Não é possível eliminar o último Administrador do sistema.": "Acción denegada: No puedes eliminar al único Administrador del sistema.",
+        "lbl_auth": "Autenticado",
+        "lbl_select_file": "Seleccionar Archivo",
+        "lbl_attached": "Adjunto: ",
+        "lbl_supported_files": "Archivos soportados: JPG, PNG, WEBP",
+        "lbl_unlimited": "Ilimitado",
+        "lbl_logged_in": "Conectado"
     }
 };
 

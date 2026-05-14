@@ -15,7 +15,7 @@ const translations = {
         "tab_search_title": '<i class="bi bi-magic me-2"></i>Pesquisa Visual Rápida',
         "tab_search_desc": "Envie uma foto ou arquivo para que a IA compare milhares de vetores em frações de segundo.",
         "upload_drag": "Clique aqui ou arraste a Imagem",
-        "btn_scan": '<i class="bi bi-magic me-2"></i>Iniciar Varredura Neural',
+        "btn_scan": '<i class="bi bi-magic me-2"></i>Iniciar pesquisa',
         // --- CADASTRO ---
         "tab_add_title": '<i class="bi bi-cloud-upload me-2"></i>Cadastro de Produto Novo',
         "lbl_code": "Código (SKU / ID)",
@@ -114,7 +114,7 @@ const translations = {
         "tab_search_title": '<i class="bi bi-magic me-2"></i>Fast Visual Search',
         "tab_search_desc": "Upload a photo or file for the AI to compare thousands of vectors in fractions of a second.",
         "upload_drag": "Click or drag Image here",
-        "btn_scan": '<i class="bi bi-magic me-2"></i>Start Neural Scan',
+        "btn_scan": '<i class="bi bi-magic me-2"></i>Start search',
         // --- CADASTRO ---
         "tab_add_title": '<i class="bi bi-cloud-upload me-2"></i>Register New Product',
         "lbl_code": "Code/SKU",
@@ -212,7 +212,7 @@ const translations = {
         "tab_search_title": '<i class="bi bi-magic me-2"></i>Búsqueda Visual Rápida',
         "tab_search_desc": "Sube una foto o archivo para que la IA compare miles de vectores en fracciones de segundo.",
         "upload_drag": "Clica o arrastra la Imagen aquí",
-        "btn_scan": '<i class="bi bi-magic me-2"></i>Iniciar Escaneo Neuronal',
+        "btn_scan": '<i class="bi bi-magic me-2"></i>Iniciar búsqueda',
         // --- CADASTRO ---
         "tab_add_title": '<i class="bi bi-cloud-upload me-2"></i>Registro de Nuevo Producto',
         "lbl_code": "Código/SKU",

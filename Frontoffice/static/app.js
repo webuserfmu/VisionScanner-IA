@@ -379,7 +379,7 @@ async function buscar() {
     } catch (err) {
         showToast(err.message, "error");
     } finally {
-        btn.innerHTML = '<i class="bi bi-magic me-2"></i>Iniciar Varredura Neural'; btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-magic me-2"></i>Iniciar pesquisa'; btn.disabled = false;
         uploadArea.classList.remove("is-scanning"); // FINALIZA A ANIMAÇÃO DO SCANNER AQUI
     }
 }

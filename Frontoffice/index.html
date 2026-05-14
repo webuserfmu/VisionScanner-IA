@@ -122,10 +122,10 @@
                                     <h5 data-i18n="upload_drag">Toque aqui ou arraste a imagem</h5>
                                     <p class="text-muted small mb-0" data-i18n="lbl_supported_files">Arquivos suportados: JPG, PNG, WEBP</p>
                                     <img id="imgBuscaPreview" class="preview-image mx-auto w-100">
-                                    <input type="file" id="fotoBusca" accept="image/*" capture="camera" onchange="previewText(this, 'txtBuscaPreview', 'imgBuscaPreview')">
+                                    <input type="file" id="fotoBusca" accept="image/*" capture="camera" onchange="previewText(this, 'txtBuscaPreview', 'imgBuscaPreview'); buscar()">
                                 </div>
                                 <p id="txtBuscaPreview" class="text-accent small fw-bold mb-3" data-i18n="lbl_select_file">Selecionar Arquivo</p>
-                                <button onclick="buscar()" id="btnBuscar" class="btn btn-fancy-success w-100 fs-5" data-i18n="btn_scan"><i class="bi bi-magic me-2"></i>Iniciar Varredura Neural</button>
+                                <button onclick="buscar()" id="btnBuscar" class="btn btn-fancy-success w-100 fs-5" data-i18n="btn_scan"><i class="bi bi-magic me-2"></i>Iniciar pesquisa</button>
                             </div>
                         </div>
                     </div>
